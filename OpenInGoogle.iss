@@ -1,0 +1,35 @@
+name: Build Windows Installer
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib pyinstaller
+          python -m pip show pyinstaller
+      - name: Build OpenInGoogle.exe
+        run: |
+          pyinstaller OpenInGoogle.spec --clean --noconfirm
+      - name: Install Inno Setup
+        run: |
+          choco install innosetup -y
+      - name: Build installer
+        run: |
+          iscc .\installer\OpenInGoogle.iss
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenInGoogleSetup
+          path: release\*.exe

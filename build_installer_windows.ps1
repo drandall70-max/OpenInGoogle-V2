@@ -1,23 +1,8 @@
-SAVE YOUR GOOGLE CREDENTIALS HERE
-
-OpenInGoogle needs a Google OAuth Desktop App credential file.
-
-Required final file name:
-
-    credentials.json
-
-Required final location:
-
-    %APPDATA%\OpenInGoogle\credentials.json
-
-Quick setup:
-1. Go to https://console.cloud.google.com/
-2. Create or select a project.
-3. Enable Google Drive API.
-4. Configure OAuth consent screen and add yourself as a test user.
-5. Create OAuth Client ID > Desktop app.
-6. Download JSON.
-7. Rename it to credentials.json.
-8. Move it into %APPDATA%\OpenInGoogle.
-
-Do not share credentials.json or token.json.
+$ErrorActionPreference = "Stop"
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -m PyInstaller OpenInGoogle.spec --clean --noconfirm
+$InnoPaths = @("${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe","${env:ProgramFiles}\Inno Setup 6\ISCC.exe")
+$ISCC = $InnoPaths | Where-Object { Test-Path $_ } | Select-Object -First 1
+if (-not $ISCC) { throw "Inno Setup 6 was not found." }
+& $ISCC ".\installer\OpenInGoogle.iss"

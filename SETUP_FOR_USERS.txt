@@ -1,22 +1,35 @@
-block_cipher = None
-a = Analysis(
-    ['OpenInGoogle.py'],
-    pathex=[],
-    binaries=[],
-    datas=[],
-    hiddenimports=['googleapiclient','google_auth_oauthlib','google.oauth2','google.auth.transport.requests','tkinter'],
-    hookspath=[],
-    hooksconfig={},
-    runtime_hooks=[],
-    excludes=[],
-    noarchive=False,
-)
-pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
-exe = EXE(
-    pyz, a.scripts, a.binaries, a.zipfiles, a.datas, [],
-    name='OpenInGoogle',
-    debug=False,
-    strip=False,
-    upx=True,
-    console=False,
-)
+OpenInGoogle User Setup
+
+WHAT GETS INSTALLED
+
+- OpenInGoogle app
+- Start Menu shortcuts
+- Optional default app handling for Office files
+- Credentials folder at %APPDATA%\OpenInGoogle
+- Uninstall entry in Windows Installed Apps
+
+DOUBLE-CLICK WORKFLOW
+
+The goal is:
+- Double-click Office files to open them in Google Docs, Sheets, or Slides.
+- Right-click and use Open with to use Microsoft Office instead.
+
+WINDOWS 11 NOTE
+
+Windows 11 may require you to confirm the default app manually:
+1. Right-click a .docx, .xlsx, or .pptx file.
+2. Choose Open with > Choose another app.
+3. Select OpenInGoogle.
+4. Choose Always use this app.
+5. Click OK.
+
+GOOGLE CREDENTIAL SETUP
+
+Use Start Menu > OpenInGoogle > Setup Google Credentials.
+
+Your credential file must be saved as:
+%APPDATA%\OpenInGoogle\credentials.json
+
+UNINSTALL
+
+Settings > Apps > Installed apps > OpenInGoogle > Uninstall
